@@ -66,7 +66,7 @@ class AcceptanceTest {
     }
 
     @Test
-    void 선물하기_성(){
+    void 선물하기_성공(){
 
     }
 }
