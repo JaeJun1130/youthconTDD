@@ -20,6 +20,22 @@ public class Review {
 
     private Boolean sent;
 
+    public Review() {
+    }
+
+    public Review(long id, String content, String phoneNumber) {
+        this.id = id;
+        this.content=content;
+        this.phoneNumber=phoneNumber;
+    }
+
+    public Review(long id, String content, String phoneNumber, boolean sent) {
+        this.id = id;
+        this.content=content;
+        this.phoneNumber=phoneNumber;
+        this.sent = sent;
+    }
+
     public Long getId() {
         return id;
     }
@@ -32,7 +48,7 @@ public class Review {
         return phoneNumber;
     }
 
-    public boolean getSent(){
+    public Boolean getSent() {
         return sent;
     }
 }

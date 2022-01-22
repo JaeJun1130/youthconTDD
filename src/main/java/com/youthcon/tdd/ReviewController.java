@@ -6,8 +6,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ReviewController {
+    private final ReviewService reviewService;
+
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
+
     @GetMapping("/reviews/{id}")
-    public Object getByid(@PathVariable Long id){
-        return null;
+    public Review getByUd(@PathVariable Long id){
+        return reviewService.getById(id);
     }
 }

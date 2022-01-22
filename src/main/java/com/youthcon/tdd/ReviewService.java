@@ -1,7 +1,16 @@
 package com.youthcon.tdd;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class ReviewService {
+    private final ReviewRepository reviewRepository;
+
+    public ReviewService(ReviewRepository reviewRepository) {
+        this.reviewRepository = reviewRepository;
+    }
+
     public Review getById(Long id) {
-        return null;
+        return reviewRepository.findById(id).orElseThrow(()->new ReviewNotFountException("no review" + id));
     }
 }

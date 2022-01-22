@@ -62,7 +62,15 @@ class AcceptanceTest {
 
     @Test
     void 후기_조회_실패(){
-
+        //given, arrange
+        given()
+                .accept(MediaType.APPLICATION_JSON_VALUE) //Header 셋팅
+        //when, act
+        .when()
+                .get("/reviews/10000")
+        //then, assert
+        .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test

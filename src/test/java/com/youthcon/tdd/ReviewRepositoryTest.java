@@ -23,7 +23,7 @@ class ReviewRepositoryTest {
         //then
         assertThat(review.getId()).isEqualTo(1L);
         assertThat(review.getContent()).isEqualTo("재밌어요");
-        assertThat(review.getPhoneNumber()).isEqualTo(1L);
+        assertThat(review.getPhoneNumber()).isEqualTo("010-1111-2222");
     }
 
 }
