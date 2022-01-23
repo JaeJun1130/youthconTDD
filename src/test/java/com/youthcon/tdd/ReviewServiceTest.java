@@ -7,14 +7,17 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.mock;
 
 
 class ReviewServiceTest {
     //mock을 이용해 가짜 주입을 함.
+    private GiftApi giftApi = mock(GiftApi.class);
     ReviewRepository reviewRepository = mock(ReviewRepository.class);
-    ReviewService reviewService = new ReviewService(reviewRepository);
+    ReviewService reviewService = new ReviewService(reviewRepository,giftApi);
 
     private Long id = 1L;
     private String content = "재밌어요";
@@ -54,5 +57,20 @@ class ReviewServiceTest {
         given(reviewRepository.findById(id)).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> reviewService.getById(10000L)).isInstanceOf(ReviewNotFountException.class);
+    }
+
+    @Test
+    void 선뭃하기_성공() {
+        //given
+        given(reviewRepository.findById(id)).willReturn(Optional.of(new Review(id,content,phoneNumber)));
+        given(giftApi.send(phoneNumber)).willReturn(true);
+        given(reviewRepository.save(any(Review.class))).willReturn(new Review(id,content,phoneNumber));
+
+        //when
+        Review review = reviewService.sendGift(id);
+
+        //then
+        assertThat(review.getId()).isEqualTo(id);
+        assertThat(review.getSent()).isEqualTo(true);
     }
 }

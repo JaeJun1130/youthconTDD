@@ -51,4 +51,8 @@ public class Review {
     public Boolean getSent() {
         return sent;
     }
+
+    public void makeTrue() {
+        this.sent = true;
+    }
 }

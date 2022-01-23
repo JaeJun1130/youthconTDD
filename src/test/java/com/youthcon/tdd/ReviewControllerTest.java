@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -67,6 +68,20 @@ public class ReviewControllerTest {
         //then
         perform
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void 선물하기() throws Exception {
+        //given
+        given(reviewService.sendGift(id)).willReturn(new Review(id, content, phoneNumber));
+
+        //when
+        ResultActions perform = mockMvc.perform(put("/reviews/" + id));
+
+        //then
+        perform
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("sent").value(true));
     }
 
 }

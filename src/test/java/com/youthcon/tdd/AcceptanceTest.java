@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
 /**
@@ -75,6 +76,15 @@ class AcceptanceTest {
 
     @Test
     void 선물하기_성공(){
-
+        //given
+        given()
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+        //when
+        .when()
+                .put("/reviews/2")
+        //then
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body("sent",equalTo(true));
     }
 }
